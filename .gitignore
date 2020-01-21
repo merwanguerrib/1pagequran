@@ -1,2 +1,11 @@
+# Node modules 
 node_modules
-img
+
+# Asset folders
+img/
+bin/
+services/
+
+# Environement variables
+.env
+
