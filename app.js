@@ -1,4 +1,5 @@
 require("dotenv").config();
+const axios = require("axios");
 
 const mongoose = require("mongoose");
 mongoose
@@ -9,3 +10,16 @@ mongoose
   .catch(err => {
     console.error(`Error connecting to Mongo ${err}`);
   });
+
+const loadPageTranslationAxios = async () => {
+  try {
+    const response = await axios.get(
+      "http://api.alquran.cloud/v1/page/1/en.hilali"
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+loadPageTranslationAxios();
