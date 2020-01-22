@@ -16,7 +16,10 @@ const loadPageTranslationAxios = async () => {
     const response = await axios.get(
       "http://api.alquran.cloud/v1/page/1/en.hilali"
     );
-    console.log(response.data);
+    const ayahsArr = response.data.data.ayahs;
+    for (const ayah of ayahsArr) {
+      console.log(ayah.text);
+    }
   } catch (error) {
     console.error(error.message);
   }
