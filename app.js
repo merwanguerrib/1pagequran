@@ -10,7 +10,9 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-app.listen(3000, () => console.log("1pageQuran app listening on port 3000!"));
+app.listen(process.env.PORT, () =>
+  console.log(`1pageQuran app listening on port ${process.env.PORT}!`)
+);
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -45,11 +47,14 @@ const loadPageTranslationAxios = async () => {
 };
 
 app.get("/", (req, res, next) => {
-  loadPageTranslationAxios().then(verses => {
-    console.log("Verses :", verses);
-    res.render("index", { list: verses });
-  });
-  // .catch(`app.get "/" error : ${error.message}`);
+  loadPageTranslationAxios()
+    .then(verses => {
+      res.render("index", { list: verses });
+    })
+    .catch(error => {
+      console.error(`app.get "/" error : ${error.message}`);
+    });
+  // ;
 });
 
 module.exports = app;
