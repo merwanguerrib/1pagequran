@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const hbs = require("hbs");
 const path = require("path");
+const Page = require("./models/Page");
 
 const app = express();
 
@@ -28,9 +29,12 @@ mongoose
     console.error(`Error connecting to Mongo ${err}`);
   });
 
+let pageNumber = 5;
+let translationType = `en.hilali`;
+
+// API Call to get the translation of the page related to pageNumber and translationType
+
 const loadPageTranslationAxios = async () => {
-  let pageNumber = 5;
-  let translationType = `en.hilali`;
   try {
     const response = await axios.get(
       `http://api.alquran.cloud/v1/page/${pageNumber}/${translationType}`
@@ -46,7 +50,30 @@ const loadPageTranslationAxios = async () => {
   }
 };
 
+//connect to mongo, search for the url related to pageNumber
+
+const retrieveUrlPage = async () => {
+  let imgSrc = "";
+  try {
+    Page.findOne({ number: pageNumber }).then(dbRes => {
+      imgSrc = dbRes.image;
+    });
+    console.log(imgSrc);
+  } catch (error) {
+    console.error(`Dbres error : `, error);
+  }
+};
+
+// Render the hbs file
+
 app.get("/", (req, res, next) => {
+  retrieveUrlPage()
+    .then(srcUrl => {
+      console.log(`retrieveUrlPage call in get route console.log : `, srcUrl);
+    })
+    .catch(err => {
+      console.error(err);
+    });
   loadPageTranslationAxios()
     .then(verses => {
       res.render("index", { list: verses });
@@ -54,7 +81,6 @@ app.get("/", (req, res, next) => {
     .catch(error => {
       console.error(`app.get "/" error : ${error.message}`);
     });
-  // ;
 });
 
 module.exports = app;
