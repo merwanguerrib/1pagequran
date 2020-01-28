@@ -55,32 +55,45 @@ const loadPageTranslationAxios = async () => {
 const retrieveUrlPage = async () => {
   let imgSrc = "";
   try {
-    Page.findOne({ number: pageNumber }).then(dbRes => {
+    await Page.findOne({ number: pageNumber }).then(dbRes => {
       imgSrc = dbRes.image;
     });
-    console.log(imgSrc);
+    return imgSrc;
   } catch (error) {
     console.error(`Dbres error : `, error);
   }
 };
 
-// Render the hbs file
+// Render the hbs view
+var pageObjectToRender = {
+  srcUrl: "",
+  verses: []
+};
 
 app.get("/", (req, res, next) => {
-  retrieveUrlPage()
-    .then(srcUrl => {
-      console.log(`retrieveUrlPage call in get route console.log : `, srcUrl);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  loadPageTranslationAxios()
-    .then(verses => {
-      res.render("index", { list: verses });
-    })
-    .catch(error => {
-      console.error(`app.get "/" error : ${error.message}`);
-    });
+  const render = async pageObjectToRender => {
+    console.log("pageObjectToRender numero 1: ", pageObjectToRender);
+    await retrieveUrlPage()
+      .then(srcUrl => {
+        pageObjectToRender.srcUrl = srcUrl;
+        console.log("retrieveUrlPage call result : ", srcUrl);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    await loadPageTranslationAxios()
+      .then(verses => {
+        pageObjectToRender.verses = verses;
+        console.log("loadPageTranslationAxios call result : ", verses);
+      })
+      .catch(error => {
+        console.error(`app.get "/" error : ${error.message}`);
+      });
+    res.render("index", { pageObjectToRender });
+  };
+  render(pageObjectToRender);
+  console.log("pageObjectToRender numero 2: ", pageObjectToRender);
 });
 
 module.exports = app;
