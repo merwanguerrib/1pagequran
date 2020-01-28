@@ -72,11 +72,9 @@ var pageObjectToRender = {
 
 app.get("/", (req, res, next) => {
   const render = async pageObjectToRender => {
-    console.log("pageObjectToRender numero 1: ", pageObjectToRender);
     await retrieveUrlPage()
       .then(srcUrl => {
         pageObjectToRender.srcUrl = srcUrl;
-        console.log("retrieveUrlPage call result : ", srcUrl);
       })
       .catch(err => {
         console.error(err);
@@ -85,7 +83,6 @@ app.get("/", (req, res, next) => {
     await loadPageTranslationAxios()
       .then(verses => {
         pageObjectToRender.verses = verses;
-        console.log("loadPageTranslationAxios call result : ", verses);
       })
       .catch(error => {
         console.error(`app.get "/" error : ${error.message}`);
@@ -93,7 +90,6 @@ app.get("/", (req, res, next) => {
     res.render("index", { pageObjectToRender });
   };
   render(pageObjectToRender);
-  console.log("pageObjectToRender numero 2: ", pageObjectToRender);
 });
 
 module.exports = app;
