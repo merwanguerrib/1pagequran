@@ -6,6 +6,8 @@ img/
 bin/
 services/
 
+
 # Environement variables
 .env
 
+github.js
