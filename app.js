@@ -88,7 +88,7 @@ var options = {
   body: {
     personalizations: [
       {
-        to: [{ email: "merwanguerrib@gmail.com", name: "Merwan" }],
+        to: [{ email: "test1pagequran@yopmail.com", name: "Sabri" }],
         dynamic_template_data: {
           pageObjectToRender: pageObjectToRender
         },
@@ -124,12 +124,17 @@ app.get("/", (req, res, next) => {
   };
   const sendMail = async () => {
     await createPage(pageObjectToRender);
-
-    await request(options, function(error, response, body) {
+    const sent = request(options);
+    try {
+      if (sent) {
+        res.send({
+          message: "email sent successfully",
+          statusCode: res.statusCode
+        });
+      }
+    } catch (error) {
       console.log("error:", error); // Print the error if one occurred
-      console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
-      console.log("body:", body);
-    });
+    }
   };
   sendMail();
 });
