@@ -5,6 +5,7 @@ node_modules
 img/
 bin/
 util/
+views/
 
 
 # Environement variables
