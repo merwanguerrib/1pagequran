@@ -7,6 +7,7 @@ const mongooseConnection = require("./services/mongoose/mongooseConnection");
 const getRecipients = require("./services/getRecipients");
 const createPage = require("./services/createPage");
 const sendMail = require("./services/sendMail");
+const incrementAdvancement = require("./services/incrementAdvancement");
 
 const app = express();
 
@@ -16,10 +17,10 @@ app.listen(process.env.PORT, () =>
 
 app.use(express.json());
 
-const main = async () => {
-  // Mongodb connection
-  mongooseConnection();
+// Mongodb connection
+mongooseConnection();
 
+const main = async () => {
   // Create recipients array
   const recipients = await getRecipients();
 
@@ -41,7 +42,7 @@ const main = async () => {
       body: {
         personalizations: [
           {
-            to: recipient.email,
+            to: [{ email: recipient.email }],
             dynamic_template_data: {
               pageObjectToRender: pageObjectToRender
             },
@@ -54,13 +55,16 @@ const main = async () => {
       },
       json: true
     };
+
     await createPage(recipient)
       .then(res => {
         options.body.personalizations[0].dynamic_template_data.pageObjectToRender = res;
         console.log(
-          "personalization : ",
-          options.body.personalizations[0].dynamic_template_data
-            .pageObjectToRender
+          `recipient.email : ${recipient.email}`,
+          `dynamic_template_data : ${JSON.stringify(
+            options.body.personalizations[0].dynamic_template_data
+              .pageObjectToRender
+          )}`
         );
       })
       .catch(error => {
@@ -71,6 +75,11 @@ const main = async () => {
       sendMail(options);
     } catch (error) {
       console.error(error);
+    } finally {
+      await incrementAdvancement(recipient);
+      console.log(
+        `advancement after incrementation : ${recipient.advancement}`
+      );
     }
   });
 };

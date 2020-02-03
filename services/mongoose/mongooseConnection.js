@@ -6,7 +6,8 @@ const mongooseConnection = () => {
   mongoose
     .connect(process.env.MONGODB_URI, {
       useUnifiedTopology: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
     })
     .then(x => {
       console.log(
