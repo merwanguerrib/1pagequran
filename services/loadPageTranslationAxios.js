@@ -11,7 +11,7 @@ const loadPageTranslationAxios = async recipient => {
     const ayahsArr = response.data.data.ayahs;
     let ayah = [];
     for (const ayahIndex of ayahsArr) {
-      ayah.push({ number: ayahIndex.number, text: ayahIndex.text });
+      ayah.push({ number: ayahIndex.numberInSurah, text: ayahIndex.text });
     }
     return ayah;
   } catch (error) {
