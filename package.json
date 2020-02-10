@@ -4,7 +4,7 @@
   "description": "Receive a page of Qur'an everyday in your mailbox",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node app.js"
+    "start": "node --exec babel-node app.js"
   },
   "repository": {
     "type": "git",
