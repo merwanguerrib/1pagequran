@@ -5,7 +5,7 @@ const loadPageTranslationAxios = async recipient => {
   let translationType = `en.hilali`;
   try {
     const response = await axios.get(
-      `http://api.alquran.cloud/v1/page/12/${translationType}`
+      `http://api.alquran.cloud/v1/page/${recipient.advancement}/${translationType}`
     );
     const ayahsArr = response.data.data.ayahs;
     let ayah = [];
