@@ -1,5 +1,5 @@
-const getUrlPage = require("./getUrlPage");
-const loadPageTranslationAxios = require("./loadPageTranslationAxios");
+import getUrlPage from "./getUrlPage";
+import loadPageTranslationAxios from "./loadPageTranslationAxios";
 
 // Create the page = img and translation
 
@@ -26,4 +26,4 @@ const createPage = async recipient => {
   return pageObjectToRender;
 };
 
-module.exports = createPage;
+export default createPage;

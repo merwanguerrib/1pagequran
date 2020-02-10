@@ -1,13 +1,13 @@
 require("dotenv").config();
 
-const express = require("express");
+import express, { json as _json } from "express";
 
-const mongooseConnection = require("./services/mongoose/mongooseConnection");
+import mongooseConnection from "./services/mongoose/mongooseConnection";
 
-const getRecipients = require("./services/getRecipients");
-const createPage = require("./services/createPage");
-const sendMail = require("./services/sendMail");
-const incrementAdvancement = require("./services/incrementAdvancement");
+import getRecipients from "./services/getRecipients";
+import createPage from "./services/createPage";
+import sendMail from "./services/sendMail";
+import incrementAdvancement from "./services/incrementAdvancement";
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.listen(process.env.PORT, () =>
   console.log(`1pageQuran app listening on port ${process.env.PORT}!`)
 );
 
-app.use(express.json());
+app.use(_json());
 
 // Mongodb connection
 mongooseConnection();
@@ -53,19 +53,22 @@ const main = async () => {
         reply_to: { email: "pageoftheday@1pageofquran.com", name: "Merwan" },
         template_id: `${process.env.Template_ID}`
       },
+      asm: {
+        group_id: 12519
+      },
       json: true
     };
 
     await createPage(recipient)
       .then(res => {
         options.body.personalizations[0].dynamic_template_data.pageObjectToRender = res;
-        console.log(
-          `recipient.email : ${recipient.email}`,
-          `dynamic_template_data : ${JSON.stringify(
-            options.body.personalizations[0].dynamic_template_data
-              .pageObjectToRender
-          )}`
-        );
+        //   console.log(
+        //     `recipient.email : ${recipient.email}`,
+        //     `dynamic_template_data : ${JSON.stringify(
+        //       options.body.personalizations[0].dynamic_template_data
+        //         .pageObjectToRender
+        //     )}`
+        //   );
       })
       .catch(error => {
         console.error(error);
@@ -77,12 +80,9 @@ const main = async () => {
       console.error(error);
     } finally {
       await incrementAdvancement(recipient);
-      console.log(
-        `advancement after incrementation : ${recipient.advancement}`
-      );
     }
   });
 };
 main();
 
-module.exports = app;
+export default app;

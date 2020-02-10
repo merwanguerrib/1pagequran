@@ -1,4 +1,4 @@
-const request = require("request");
+import request from "request";
 
 const sendMail = async options => {
   request(options, function(error, response, body) {
@@ -7,4 +7,4 @@ const sendMail = async options => {
   });
 };
 
-module.exports = sendMail;
+export default sendMail;

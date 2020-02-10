@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import { Schema as _Schema, model } from "mongoose";
+const Schema = _Schema;
 
 const PageSchema = new Schema(
   {
@@ -14,5 +14,5 @@ const PageSchema = new Schema(
   }
 );
 
-const Page = mongoose.model("Page", PageSchema);
-module.exports = Page;
+const Page = model("Page", PageSchema);
+export default Page;

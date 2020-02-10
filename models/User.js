@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import { Schema as _Schema, model } from "mongoose";
+const Schema = _Schema;
 
 const UserSchema = new Schema(
   {
     email: String,
-    advancement: Number
+    advancement: Number,
+    translationType: String
   },
   {
     timestamps: {
@@ -14,5 +15,5 @@ const UserSchema = new Schema(
   }
 );
 
-const User = mongoose.model("User", UserSchema);
-module.exports = User;
+const User = model("User", UserSchema);
+export default User;
