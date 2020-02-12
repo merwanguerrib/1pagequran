@@ -44,9 +44,14 @@ const main = async () => {
           {
             to: [{ email: recipient.email }],
             dynamic_template_data: {
-              pageObjectToRender: pageObjectToRender
-            },
-            subject: `Read the page ${recipient.advancement} today !`
+              pageObjectToRender: pageObjectToRender,
+              subject:
+                recipient.translationType === `en`
+                  ? `Read the page ${recipient.advancement} today !`
+                  : recipient.translationType === `fr`
+                  ? `Lis la page ${recipient.advancement} ce jour`
+                  : null
+            }
           }
         ],
         from: { email: "pageoftheday@1pageofquran.com", name: "Merwan" },
@@ -59,13 +64,13 @@ const main = async () => {
     await createPage(recipient)
       .then(res => {
         options.body.personalizations[0].dynamic_template_data.pageObjectToRender = res;
-        console.log(
-          `recipient.email : ${recipient.email}`,
-          `dynamic_template_data : ${JSON.stringify(
-            options.body.personalizations[0].dynamic_template_data
-              .pageObjectToRender
-          )}`
-        );
+        // console.log(
+        //   `recipient.email : ${recipient.email}`,
+        //   `dynamic_template_data : ${JSON.stringify(
+        //     options.body.personalizations[0].dynamic_template_data
+        //       .pageObjectToRender
+        //   )}`
+        // );
       })
       .catch(error => {
         console.error(error);

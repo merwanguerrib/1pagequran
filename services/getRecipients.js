@@ -7,7 +7,11 @@ var recipients = [];
 const getRecipients = async () => {
   users = await User.find();
   users.map(user => {
-    recipients.push({ email: user.email, advancement: user.advancement });
+    recipients.push({
+      email: user.email,
+      advancement: user.advancement,
+      translationType: user.translationType
+    });
   });
   return recipients;
 };

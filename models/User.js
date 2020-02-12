@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema(
   {
     email: String,
-    advancement: Number
+    advancement: Number,
+    translationType: String
   },
   {
     timestamps: {

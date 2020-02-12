@@ -3,7 +3,14 @@ const axios = require("axios");
 // API Call to get the translation of the page related to pageNumber and translationType
 
 const loadPageTranslationAxios = async recipient => {
-  let translationType = `en.hilali`;
+  let translationType;
+
+  if (recipient.translationType === "en") {
+    translationType = `en.hilali`;
+  } else if (recipient.translationType === "fr") {
+    translationType = `fr.hamidullah`;
+  }
+
   try {
     const response = await axios.get(
       `http://api.alquran.cloud/v1/page/${recipient.advancement}/${translationType}`
