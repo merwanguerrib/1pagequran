@@ -4,13 +4,9 @@
   "description": "Receive a page of Qur'an everyday in your mailbox",
   "main": "app.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-=======
-    "start": "node --exec babel-node app.js"
->>>>>>> 93ecb8191b58fc3330e693e0f8c01ff08cc0f1bb
   },
   "repository": {
     "type": "git",
@@ -24,6 +20,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.8.9",
+    "node-cron": "^2.0.3",
     "nodemon": "^2.0.2",
     "request": "^2.88.0"
   }

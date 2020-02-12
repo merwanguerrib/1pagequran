@@ -7,7 +7,7 @@ bin/
 util/
 views/
 
-views/email.hbs
+npm
 
 
 # Environement variables
