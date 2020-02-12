@@ -9,6 +9,8 @@ const createPage = require("./services/createPage");
 const sendMail = require("./services/sendMail");
 const incrementAdvancement = require("./services/incrementAdvancement");
 
+const cron = require("node-cron");
+
 const app = express();
 
 app.listen(process.env.PORT, () =>
@@ -82,12 +84,13 @@ const main = async () => {
       console.error(error);
     } finally {
       await incrementAdvancement(recipient);
-      console.log(
-        `advancement after incrementation : ${recipient.advancement}`
-      );
     }
   });
 };
-main();
+
+//Setup the Cron to execute everyday at 7:00 am (change to '* * * * *' to execute every minute for test purposes)
+cron.schedule("0 7 * * *", () => {
+  main();
+});
 
 module.exports = app;
