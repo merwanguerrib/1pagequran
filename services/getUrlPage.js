@@ -1,5 +1,5 @@
-import Page from "../models/Page";
-import recipient from "./getRecipients";
+const Page = require("../models/Page");
+const recipient = require("./getRecipients");
 //Search in database for the url related to pageNumber
 
 const getUrlPage = async recipient => {
@@ -14,4 +14,4 @@ const getUrlPage = async recipient => {
   }
 };
 
-export default getUrlPage;
+module.exports = getUrlPage;

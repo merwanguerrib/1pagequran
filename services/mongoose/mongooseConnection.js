@@ -1,5 +1,5 @@
 require("dotenv").config();
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 // Mongodb connection
 const mongooseConnection = () => {
@@ -19,4 +19,4 @@ const mongooseConnection = () => {
     });
 };
 
-export default mongooseConnection;
+module.exports = mongooseConnection;

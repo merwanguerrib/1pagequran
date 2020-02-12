@@ -1,11 +1,12 @@
-import axios from "axios";
+const axios = require("axios");
+
 // API Call to get the translation of the page related to pageNumber and translationType
 
 const loadPageTranslationAxios = async recipient => {
   let translationType = `en.hilali`;
   try {
     const response = await axios.get(
-      `http://api.alquran.cloud/v1/page/12/${translationType}`
+      `http://api.alquran.cloud/v1/page/${recipient.advancement}/${translationType}`
     );
     const ayahsArr = response.data.data.ayahs;
     let ayah = [];
@@ -18,4 +19,4 @@ const loadPageTranslationAxios = async recipient => {
   }
 };
 
-export default loadPageTranslationAxios;
+module.exports = loadPageTranslationAxios;

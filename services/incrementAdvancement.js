@@ -1,4 +1,4 @@
-import User from "../models/User";
+const User = require("../models/User");
 
 const incrementAdvancement = async recipient => {
   const filter = { email: recipient.email };
@@ -9,4 +9,4 @@ const incrementAdvancement = async recipient => {
   });
   await user.save();
 };
-export default incrementAdvancement;
+module.exports = incrementAdvancement;

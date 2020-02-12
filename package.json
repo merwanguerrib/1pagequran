@@ -1,14 +1,12 @@
 {
   "name": "1pagequran",
   "version": "1.0.0",
-  "description": "Receive a page of Qur'an everyday in your mailbox",
+  "description": "Recieive a page of Qur'an everyday in your mailbox",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mrwn211/1pagequran"
+    "start": "node app.js",
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Merwan Guerrib",
   "license": "ISC",
@@ -18,11 +16,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.8.9",
+    "nodemon": "^2.0.2",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.8.4"
+    "nodemon": "^1.19.4"
   }
 }
