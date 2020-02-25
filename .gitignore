@@ -1,11 +1,9 @@
 # Node modules 
-node_modules
+API/node_modules
+Client/node_modules
 
 # Asset folders
-img/
-bin/
-util/
-views/
+_Assets
 
 npm
 

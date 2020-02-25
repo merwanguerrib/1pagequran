@@ -51,7 +51,7 @@ const main = async () => {
                 recipient.translationType === `en`
                   ? `Read the page ${recipient.advancement} today !`
                   : recipient.translationType === `fr`
-                  ? `Lis la page ${recipient.advancement} ce jour`
+                  ? `Lis la page ${recipient.advancement} aujourd'hui`
                   : null
             }
           }
