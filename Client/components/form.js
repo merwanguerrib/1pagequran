@@ -7,7 +7,9 @@ const Form = () => (
       <input type="email" />
       <label>Translation Type</label>
       <input type="radio" id="en" name="translationType" value="English" />
+      <label for="English">English</label>
       <input type="radio" id="fr" name="translationType" value="Français" />
+      <label for="Français">Français</label>
     </form>
     <button type="submit" form="signup" value="I register">
       I register
