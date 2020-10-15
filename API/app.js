@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 
 const mongooseConnection = require("./services/mongoose/mongooseConnection");
-const User = require("./models/User");
 
 const getRecipients = require("./services/getRecipients");
 const createPage = require("./services/createPage");
@@ -28,25 +27,8 @@ app.use(bodyParser.json());
 // Mongodb connection
 mongooseConnection();
 
-// Adding a User
-app.post("/signup", (req, res) => {
-  const email = req.body.email;
-  const translationType = req.body.translation;
-  console.log(req.body);
-  const newUser = new User({
-    email: email,
-    advancement: 1,
-    translationType: translationType,
-  });
-  newUser
-    .save()
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      console.log(error);
-    });
-});
+const signup = require("./routes/signup");
+app.use("/", signup);
 
 const main = async () => {
   // Create recipients array
