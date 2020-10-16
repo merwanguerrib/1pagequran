@@ -16,6 +16,7 @@ const createMail = async () => {
       srcUrl: "",
       verses: [],
     };
+
     // Set the options of the email
     let options = {
       method: "POST",
@@ -39,8 +40,8 @@ const createMail = async () => {
             },
           },
         ],
-        from: { email: "pageoftheday@1pagequran.com", name: "Merwan" },
-        reply_to: { email: "pageoftheday@1pagequran.com", name: "Merwan" },
+        from: { email: "pageoftheday@1pagequran.com", name: "1PageQuran" },
+        reply_to: { email: "pageoftheday@1pagequran.com", name: "1PageQuran" },
         template_id: `${process.env.Template_ID}`,
       },
       json: true,
@@ -48,7 +49,10 @@ const createMail = async () => {
 
     await createPage(recipient)
       .then((res) => {
-        options.body.personalizations[0].dynamic_template_data.pageObjectToRender = res;
+        let page =
+          options.body.personalizations[0].dynamic_template_data
+            .pageObjectToRender;
+        page = res;
         console.log(
           `recipient.email : ${recipient.email}`,
           `dynamic_template_data : ${JSON.stringify(
