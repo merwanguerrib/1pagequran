@@ -2,9 +2,9 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const { handleError } = require("./helpers/error");
 
 const mongooseConnection = require("./services/mongoose/mongooseConnection");
-
 const createMail = require("./services/createMail");
 
 const cron = require("node-cron");
@@ -27,8 +27,12 @@ mongooseConnection();
 const signup = require("./routes/signup");
 app.use("/", signup);
 
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
+
 // Function Call to be deleted after testing
-createMail();
+//createMail();
 
 // ########## UNCOMMENT AFTER TESTING ########
 //Setup the Cron to execute everyday at 7:00 am (change to '* * * * *' to execute every minute for test purposes)
