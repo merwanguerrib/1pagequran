@@ -27,10 +27,6 @@ mongooseConnection();
 const signup = require("./routes/signup");
 app.use("/", signup);
 
-app.use((err, req, res, next) => {
-  handleError(err, res);
-});
-
 // Function Call to be deleted after testing
 //createMail();
 
@@ -39,5 +35,10 @@ app.use((err, req, res, next) => {
 // cron.schedule("0 7 * * *", () => {
 //   createMail();
 // });
+
+//The error-handling middleware must be the last among other middleware and routes for it to function correctly.
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 module.exports = app;
