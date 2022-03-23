@@ -2,9 +2,9 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const { handleError } = require("./helpers/error");
 
 const mongooseConnection = require("./services/mongoose/mongooseConnection");
-
 const createMail = require("./services/createMail");
 
 const cron = require("node-cron");
@@ -28,12 +28,17 @@ const signup = require("./routes/signup");
 app.use("/", signup);
 
 // Function Call to be deleted after testing
-createMail();
+//createMail();
 
 // ########## UNCOMMENT AFTER TESTING ########
 //Setup the Cron to execute everyday at 7:00 am (change to '* * * * *' to execute every minute for test purposes)
 // cron.schedule("0 7 * * *", () => {
 //   createMail();
 // });
+
+//The error-handling middleware must be the last among other middleware and routes for it to function correctly.
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 module.exports = app;
