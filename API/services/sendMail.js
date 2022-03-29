@@ -1,9 +1,10 @@
 const request = require("request");
 
-const sendMail = async options => {
-  request(options, function(error, response, body) {
+const sendMail = async (options) => {
+  request(options, function (error, response, body) {
+    body && console.log("sendmail.js body", body);
     if (error) throw new Error(error);
-    console.log("statusCode : ", response && response.statusCode);
+    console.log("sendMail.js statusCode : ", response && response.statusCode);
   });
 };
 
