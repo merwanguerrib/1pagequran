@@ -1,17 +1,20 @@
+const User = require("../models/User");
+const { ErrorHandler } = require("../helpers/error");
+
 const checkIfUserExists = async (req, res, next) => {
+  const { email, translationType } = req.body;
   try {
-    const { email, translationType } = req.body;
     if (!email || !translationType) {
       throw new ErrorHandler(
         404,
-        "Missing required email and translation fields"
+        "Missing required email or translation fields"
       );
     }
-    const user = await db.User.findOne({ where: { email } });
+    const user = await User.findOne({ email: email });
     if (user) {
       throw new ErrorHandler(
-        404,
-        "User with the specified email already exists"
+        403,
+        `The email adress ${email} is already associated with an existing account`
       );
     }
     next();
