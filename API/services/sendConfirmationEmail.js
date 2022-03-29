@@ -30,7 +30,12 @@ const sendConfirmationEmail = async (req, res, next, newUser, token) => {
       ],
       from: { email: "pageoftheday@1pagequran.com", name: "1PageQuran" },
       reply_to: { email: "no-reply@1pagequran.com", name: "1PageQuran" },
-      template_id: `${process.env.EmailConfirmationTemplate_ID}`,
+      template_id:
+        newUser.translationType === `en`
+          ? `${process.env.EmailConfirmationENG_Template_ID}`
+          : newUser.translationType === `fr`
+          ? `${process.env.EmailConfirmationFR_Template_ID}`
+          : null,
     },
     json: true,
   };
