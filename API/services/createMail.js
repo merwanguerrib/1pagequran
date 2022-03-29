@@ -40,7 +40,7 @@ const createMail = async () => {
             },
           },
         ],
-        from: "pageoftheday@1pagequran.com",
+        from: { email: "pageoftheday@1pagequran.com", name: "1PageQuran" },
         reply_to: { email: "no-reply@1pagequran.com", name: "1PageQuran" },
         template_id: `${process.env.Template_ID}`,
       },
