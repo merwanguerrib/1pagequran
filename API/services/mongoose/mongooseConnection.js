@@ -7,14 +7,15 @@ const mongooseConnection = () => {
     .connect(process.env.MONGODB_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useCreateIndex: true,
     })
-    .then(x => {
+    .then((x) => {
       console.log(
         `Connected to Mongo ! Database name : ${x.connections[0].name}`
       );
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(`Error connecting to Mongo ${err}`);
     });
 };
