@@ -2,10 +2,10 @@ require("dotenv").config();
 
 const getRecipients = require("./getRecipients");
 const createPage = require("./createPage");
-const sendMail = require("./sendMail");
+const sendEmailSendgrid = require("./sendEmailSendgrid");
 const incrementAdvancement = require("./incrementAdvancement");
 
-const createMail = async () => {
+const sendPagesEmails = async () => {
   // Create recipients array
   const recipients = await getRecipients();
 
@@ -66,7 +66,7 @@ const createMail = async () => {
       });
 
     try {
-      sendMail(options);
+      sendEmailSendgrid(options);
     } catch (error) {
       console.error(error);
     } finally {
@@ -75,4 +75,4 @@ const createMail = async () => {
   });
 };
 
-module.exports = createMail;
+module.exports = sendPagesEmails;

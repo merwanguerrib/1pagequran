@@ -4,13 +4,13 @@ const router = express.Router();
 
 const { ErrorHandler } = require("../helpers/error");
 
-const checkIfUserExists = require("../services/checkIfUserExists");
+const checkIfEmailAdressIsAssociated = require("../services/checkIfEmailAdressIsAssociated");
 const createUser = require("../services/createUser");
 
 // Adding a User
 router.post("/signup", async (req, res, next) => {
   try {
-    await checkIfUserExists(req, res, next);
+    await checkIfEmailAdressIsAssociated(req, res, next);
     try {
       await createUser(req, res, next);
     } catch (error) {
@@ -18,7 +18,7 @@ router.post("/signup", async (req, res, next) => {
       throw new ErrorHandler("500", error.message);
     }
   } catch (error) {
-    console.log("Try checkIfUserExists signup catch errro");
+    console.log("Try checkIfEmailAdressIsAssociated signup catch errro");
     throw new ErrorHandler("500", error.message);
   }
 });

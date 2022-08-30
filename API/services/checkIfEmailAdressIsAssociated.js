@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const { ErrorHandler } = require("../helpers/error");
 
-const checkIfUserExists = async (req, res, next) => {
+const checkIfEmailAdressIsAssociated = async (req, res, next) => {
   const { email, translationType } = req.body;
   try {
     if (!email || !translationType) {
@@ -23,4 +23,4 @@ const checkIfUserExists = async (req, res, next) => {
   }
 };
 
-module.exports = checkIfUserExists;
+module.exports = checkIfEmailAdressIsAssociated;

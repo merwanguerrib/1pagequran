@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const sendMail = require("./sendMail");
+const sendEmailSendgrid = require("./sendEmailSendgrid");
 
 const { ErrorHandler } = require("../helpers/error");
 
@@ -18,7 +18,7 @@ const sendConfirmationEmail = async (req, res, next, newUser, token) => {
         {
           to: [{ email: newUser.email }],
           dynamic_template_data: {
-            confirmationLink: `${process.env.PUBLIC_URL}\/confirmation\/${token.token}`,
+            confirmationLink: `${process.env.PUBLIC_URL}\/verification\/${newUser.id}\/${token.token}`,
             subject:
               newUser.translationType === `en`
                 ? `Please confirm your email address`
@@ -40,9 +40,9 @@ const sendConfirmationEmail = async (req, res, next, newUser, token) => {
     json: true,
   };
   try {
-    sendMail(options);
+    sendEmailSendgrid(options);
   } catch (error) {
-    console.log("CreateToken catch error");
+    console.log("sendConfirmationEmail catch error");
     throw new ErrorHandler(error.statusCode, error.message);
   }
 };

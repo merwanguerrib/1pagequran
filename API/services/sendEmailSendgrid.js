@@ -1,6 +1,6 @@
 const request = require("request");
 
-const sendMail = async (options) => {
+const sendEmailSendgrid = async (options) => {
   request(options, function (error, response, body) {
     body && console.log("sendmail.js body", body);
     if (error) throw new Error(error);
@@ -8,4 +8,4 @@ const sendMail = async (options) => {
   });
 };
 
-module.exports = sendMail;
+module.exports = sendEmailSendgrid;
